@@ -130,3 +130,6 @@ dmypy.json
 
 # VSCode settings
 .vscode
+
+# File with Django secret key string
+secretkey.txt
