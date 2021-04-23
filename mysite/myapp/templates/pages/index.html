@@ -1,1 +1,43 @@
-<h1>This is a test</h1>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Phonebook</title>
+    </head>
+
+    <body>
+        <h1>Phonebook</h1>
+
+        <p><a href='/myapp/patronmanager/'>Create account or log in</a></p>
+
+        <ul>
+            {% for patron in patrons %}
+            <!-- {{ book.get_absolute_url }} -->
+            <li><a href='/myapp/patrons/{{patron.username}}/'>{{patron.username}}</a></li>
+		    {% endfor %}
+        </ul>
+
+        <!-- <ul>
+            {% for num in phonenums %}
+            <li>{{num}}</li>
+		    {% endfor %}
+        </ul> -->
+
+        <h2>Add new number</h2>
+
+        <form action="/add" method="POST">
+            {% csrf_token %}
+            <input type="text" name="content"/>
+            <input type="submit"/>
+        </form>
+
+
+        <h2>Clear everything</h2>
+
+        <form action="/erase" method="POST">
+            {% csrf_token %}
+            <input type="submit"/>
+        </form>
+
+
+    </body>
+</html>

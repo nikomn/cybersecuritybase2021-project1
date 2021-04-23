@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Phonebook</title>
+    </head>
+
+    <body>
+        <h1>Phonebook</h1>
+
+        <h2>Homepage of user {{patron.username}}</h2>
+
+        <h3>Userinfo:</h3>
+
+        <ul>
+          <li>username: {{patron.username}}</li>
+          <li>password: {{patron.password}}</li>
+          <li>ssn: {{patron.ssn}}</li>
+          <li>real name: {{patron.firstname}} {{patron.lastname}}</li>
+          <li>address: {{patron.address}}</li>
+        </ul>
+
+        <h3>Phonenumbers</h3>
+
+        <ul>
+          {% for number in numbers %}
+          <li>{{number.information}}: {{number.number}}</li>
+          {% endfor %}
+        </ul>
+
+        <h4>add a new number for yourself</h4>
+
+        <form action="addnumber/" method="POST">
+            {% csrf_token %}
+            number: <input type="text" name="number"/> <br />
+            info: <input type="text" name="info"/> <br />
+            <input name="owner" type="hidden" value={{patron.username}}>
+            <input type="submit"/>
+        </form>
+
+    </body>
+</html>
