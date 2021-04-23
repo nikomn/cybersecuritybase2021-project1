@@ -8,36 +8,17 @@
         <h1>Phonebook</h1>
 
         <p><a href='/myapp/patronmanager/'>Create account or log in</a></p>
+        or if you are already logged in, you can also
+        <p><a href='/myapp/logoutForm/'>Log out</a></p>
 
         <ul>
+
+        <h2>Users:</h2>
             {% for patron in patrons %}
             <!-- {{ book.get_absolute_url }} -->
             <li><a href='/myapp/patrons/{{patron.username}}/'>{{patron.username}}</a></li>
 		    {% endfor %}
         </ul>
-
-        <!-- <ul>
-            {% for num in phonenums %}
-            <li>{{num}}</li>
-		    {% endfor %}
-        </ul> -->
-
-        <h2>Add new number</h2>
-
-        <form action="/add" method="POST">
-            {% csrf_token %}
-            <input type="text" name="content"/>
-            <input type="submit"/>
-        </form>
-
-
-        <h2>Clear everything</h2>
-
-        <form action="/erase" method="POST">
-            {% csrf_token %}
-            <input type="submit"/>
-        </form>
-
 
     </body>
 </html>

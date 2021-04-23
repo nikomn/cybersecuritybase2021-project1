@@ -27,27 +27,42 @@ def patronFormView(request):
 def loginFormView(request):
     return render(request, 'pages/login.html')
 
+def logoutFormView(request):
+    return render(request, 'pages/logout.html')
+
 def loginView(request):
     username = request.POST.get('username')
     password = request.POST.get('password')
     print('Attempting login for user', username, 'with password:', password)
-    patron = Patron.objects.get(username=username)
-    if patron.password == password:
-        print('Password correct! Logging in...')
+    try:
+        patron = Patron.objects.get(username=username)
+        if patron.password == password:
+            print('Password correct! Logging in...')
 
-        if patron.logged == 'False':
-            patron.logged = 'True'
-            patron.save()
-        return render(request, 'pages/loginok.html')
-    else:
-        print('Wrong password!')
+            if patron.logged == 'False':
+                patron.logged = 'True'
+                patron.save()
+            return render(request, 'pages/loginok.html')
+        else:
+            print('Wrong password!')
+            return render(request, 'pages/loginfail.html')
+    except:
         return render(request, 'pages/loginfail.html')
 
-def logoutView(request, username):
-    patron = Patron.objects.get(username=username)
-    if patron.logged == 'True':
-        patron.logged = 'False'
-    return redirect('login')
+def logoutView(request):
+    username = request.POST.get('username')
+    password = request.POST.get('password')
+    try:
+        patron = Patron.objects.get(username=username)
+        if patron.password == password:
+            if patron.logged == 'True':
+                patron.logged = 'False'
+                patron.save()
+            return render(request, 'pages/logoutok.html')
+        else:
+            return render(request, 'pages/logoutfail.html')
+    except:
+        return render(request, 'pages/logoutfail.html')
 
 def addNumberView(request, username):
     username = request.POST.get('owner')
